@@ -1,0 +1,21 @@
+{
+  "name": "sse-theme-slider",
+  "version": "0.0.1",
+  "homepage": "https://github.com/TJUSSE/sse-theme-slider",
+  "authors": [
+    "Josh Ouyang <JoshOY789@gmail.com>"
+  ],
+  "description": "SSE Web slider effect repo.",
+  "main": "slider-demo.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.9"
+  }
+}

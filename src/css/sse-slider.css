@@ -1,0 +1,17 @@
+.sse-slider {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1250px;
+  min-height: 350px;
+  background: #ddd;
+}
+.sse-slider--hidden {
+  display: none;
+}
+.sse-slider--indicator {
+  display: block;
+  text-align: center;
+  font-size: 2em;
+  margin: auto;
+}

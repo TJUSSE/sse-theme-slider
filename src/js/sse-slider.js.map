@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "sse-slider.js",
+  "sourceRoot": "",
+  "sources": [
+    "sse-slider.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAEA;AAAA,MAAA;;EAAA,MAAM,CAAC,CAAP,GAAW,MAAM,CAAC,CAAP,IAAY;;EAEvB,MAAM,CAAC,CAAC,CAAC,YAAT,GACE;IAAA,QAAA,EACE;MAAA,WAAA,EAAa,CAAb;KADF;;;EAGF,OAAA,GAAU,MAAM,CAAC,CAAC,CAAC;;EAEnB,CAAA,CAAE,QAAF,CAAW,CAAC,KAAZ,CAAkB,SAAA,GAAA,CAAlB;AARA"
+}
