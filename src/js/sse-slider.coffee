@@ -31,5 +31,10 @@ $(document).ready ->
             <div class="circle4"></div>
           </div>
         </div>
-      </div>')
+      </div>
+
+      <div class="sse-slider--control-next"><button><i class="fa fa-angle-right"></i></button></div>
+      <div class="sse-slider--control-prev"><button><i class="fa fa-angle-left"></i></button></div>
+
+      ')
 

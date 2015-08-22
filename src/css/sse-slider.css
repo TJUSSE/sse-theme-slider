@@ -3,6 +3,7 @@
   margin: 0 auto;
   width: 1250px;
   min-height: 350px;
+  overflow: hidden;
 }
 .sse-slider--hidden {
   display: none;
@@ -12,7 +13,7 @@
   text-align: center;
   font-size: 2em;
   margin: auto;
-  z-index: 9998;
+  z-index: 9997;
   width: 100%;
   height: 350px;
   background: #ddd;
@@ -21,4 +22,44 @@
   list-style: none;
   margin: 0 auto;
   padding: 0;
+}
+.sse-slider img {
+  display: none;
+}
+.sse-slider .show {
+  display: block !important;
+}
+.sse-slider--control-prev,
+.sse-slider--control-next {
+  display: block;
+  position: absolute;
+  top: 8px;
+  height: 350px;
+}
+.sse-slider--control-prev button,
+.sse-slider--control-next button {
+  width: 85px;
+  height: 350px;
+  border: none;
+  color: #000;
+  outline: 0;
+  font-size: 2em;
+  line-height: 350px;
+  text-align: center;
+  background: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity linear 0.2s;
+}
+.sse-slider--control-prev button:hover,
+.sse-slider--control-next button:hover {
+  opacity: 1;
+}
+.sse-slider--control-prev button {
+  z-index: 9999;
+  margin-left: 0;
+}
+.sse-slider--control-next button {
+  z-index: 9998;
+  margin-left: 1165px;
 }
