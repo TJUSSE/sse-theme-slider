@@ -1,3 +1,6 @@
+$slider-width  = 1250px;
+$slider-height = 350px;
+
 html, body {
 
 }
@@ -5,10 +8,8 @@ html, body {
 .sse-slider
   display block
   margin 0 auto
-  width 100%
-  max-width 1250px
-  min-height 350px
-  background #ddd
+  width $slider-width
+  min-height $slider-height
 
 .sse-slider--hidden
   display none
@@ -18,3 +19,13 @@ html, body {
   text-align center
   font-size 2em
   margin auto
+  z-index 9998
+  width 100%
+  height $slider-height
+  background #ddd
+
+ .sse-slider ul
+   list-style none
+   margin 0 auto
+   padding 0
+
