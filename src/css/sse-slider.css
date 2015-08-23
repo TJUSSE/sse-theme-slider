@@ -1,5 +1,6 @@
 .sse-slider {
   display: block;
+  position: relative;
   margin: 0 auto;
   width: 1250px;
   min-height: 350px;
@@ -31,9 +32,9 @@
 }
 .sse-slider--control-prev,
 .sse-slider--control-next {
-  display: block;
+  display: inline-block;
   position: absolute;
-  top: 8px;
+  top: 0;
   height: 350px;
 }
 .sse-slider--control-prev button,
@@ -55,11 +56,28 @@
 .sse-slider--control-next button:hover {
   opacity: 1;
 }
-.sse-slider--control-prev button {
+.sse-slider--control-prev {
   z-index: 9999;
-  margin-left: 0;
+  left: 0;
 }
-.sse-slider--control-next button {
+.sse-slider--control-next {
   z-index: 9998;
-  margin-left: 1165px;
+  right: 0;
+}
+.sse-slider--round-ctrl {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 25px;
+  margin: 0 auto;
+  text-align: center;
+}
+.sse-slider--round-ctrl button {
+  border: none;
+  background: none;
+  color: #fff;
+  padding: 0 8px;
+  cursor: pointer;
+  outline: none;
 }

@@ -1,6 +1,6 @@
 $slider-width  = 1250px;
 $slider-height = 350px;
-$slider-bottom-height = 35px;
+$slider-bottom-height = 25px;
 
 html, body {
 
@@ -8,6 +8,7 @@ html, body {
 
 .sse-slider
   display block
+  position relative
   margin 0 auto
   width $slider-width
   min-height $slider-height
@@ -38,9 +39,9 @@ html, body {
    display block !important
 
  .sse-slider--control-prev, .sse-slider--control-next
-   display block
+   display inline-block
    position absolute
-   top 8px
+   top 0
    height $slider-height
 
  .sse-slider--control-prev button,
@@ -63,10 +64,31 @@ html, body {
  .sse-slider--control-next button:hover
    opacity 1
 
- .sse-slider--control-prev button
+ .sse-slider--control-prev
    z-index 9999
-   margin-left 0
+   //top 0
+   left 0
 
- .sse-slider--control-next button
+ .sse-slider--control-next
    z-index 9998
-   margin-left $slider-width - 85px
+   //top 0
+   right 0
+   //left $slider-width - 85px
+
+ .sse-slider--round-ctrl
+   display block
+   position absolute
+   //bottom $slider-bottom-height
+   bottom 0
+   width 100%
+   height $slider-bottom-height
+   margin 0 auto
+   text-align center
+
+ .sse-slider--round-ctrl button
+   border none
+   background none
+   color white
+   padding 0 8px
+   cursor pointer
+   outline none

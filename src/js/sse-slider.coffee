@@ -53,6 +53,14 @@ $(document).ready ->
       ')
 
   $slider.status.totalImageNum = $('.sse-slider img').length
+
+  roundCtrl = '<div class="sse-slider--round-ctrl">'
+  for i in [0..$slider.status.totalImageNum - 1]
+    roundCtrl += '<button><i class="fa fa-circle"></i></button>'
+  roundCtrl += '</div>'
+
+  $('.sse-slider').append(roundCtrl)
+
   console.log 'Slides images num: %d', $slider.status.totalImageNum
 
 
