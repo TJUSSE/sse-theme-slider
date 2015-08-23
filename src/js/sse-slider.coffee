@@ -3,8 +3,22 @@
 window.g = window.g or {}
 
 window.g.$sliderScope =
+  self: this
   settings:
     IntervalSec: 2
+  status:
+    currentShowingIndex: 0
+    totalImageNum: 0
+    LoadedBitmap: 0
+  fn:
+    onload: (idx)->
+      if idx isnt -1
+        console.log 'Slider image #%d onload!', idx
+      if idx isnt (window.g.$sliderScope.status.totalImageNum - 1)
+        nextImg = $('.sse-slider img')[idx + 1]
+        url = nextImg.getAttribute('data-src')
+        $(nextImg).attr 'src', url
+
 
 $slider = window.g.$sliderScope
 
@@ -38,3 +52,14 @@ $(document).ready ->
 
       ')
 
+  $slider.status.totalImageNum = $('.sse-slider img').length
+  console.log 'Slides images num: %d', $slider.status.totalImageNum
+
+
+  for li in $('.sse-slider li')
+    idx = $(li).index()
+    console.log $(li).index()
+    img = $('.sse-slider img').eq(idx)
+    $(img).attr 'onload', 'window.g.$sliderScope.fn.onload(' + idx + ')'
+
+  window.g.$sliderScope.fn.onload(-1);
