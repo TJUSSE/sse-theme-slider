@@ -19,76 +19,91 @@ html, body {
 
 .sse-slider--indicator
   display block
+  position absolute
+  top 0
+  left 0
   text-align center
   font-size 2em
   margin auto
-  z-index 9997
+  z-index 9996
   width 100%
   height $slider-height
   background #ddd
 
- .sse-slider ul
-   list-style none
-   margin 0 auto
-   padding 0
+.sse-slider ul
+  list-style none
+  margin 0 auto
+  padding 0
 
- .sse-slider img
-   display none
+.sse-slider img
+  z-index 9997
+  display block
+  position absolute
+  top 0
+  left 0
+  opacity 0
+  transition all ease-in 0.2s
 
- .sse-slider .show
-   display block !important
+.sse-slider .is-show
+  opacity 1
 
- .sse-slider--control-prev, .sse-slider--control-next
-   display inline-block
-   position absolute
-   top 0
-   height $slider-height
+.sse-slider .is-loading
 
- .sse-slider--control-prev button,
- .sse-slider--control-next button
-   width 85px
-   height $slider-height
-   border none
-   color black
-   outline 0
-   font-size 2em
-   line-height $slider-height
-   text-align center
-   background none
-   cursor pointer
-   opacity 0
+.sse-slider--control-prev, .sse-slider--control-next
+  display inline-block
+  position absolute
+  top 0
+  height $slider-height
 
-   transition opacity linear 0.2s
+.sse-slider--control-prev button,
+.sse-slider--control-next button
+  width 85px
+  height $slider-height
+  border none
+  color black
+  outline 0
+  font-size 2em
+  line-height $slider-height
+  text-align center
+  background none
+  cursor pointer
+  opacity 0
 
- .sse-slider--control-prev button:hover,
- .sse-slider--control-next button:hover
-   opacity 1
+  transition opacity linear 0.2s
 
- .sse-slider--control-prev
-   z-index 9999
-   //top 0
-   left 0
+.sse-slider--control-prev button:hover,
+.sse-slider--control-next button:hover
+  opacity 1
 
- .sse-slider--control-next
-   z-index 9998
-   //top 0
-   right 0
-   //left $slider-width - 85px
+.sse-slider--control-prev
+  z-index 9999
+  //top 0
+  left 0
 
- .sse-slider--round-ctrl
-   display block
-   position absolute
-   //bottom $slider-bottom-height
-   bottom 0
-   width 100%
-   height $slider-bottom-height
-   margin 0 auto
-   text-align center
+.sse-slider--control-next
+  z-index 9998
+  //top 0
+  right 0
+  //left $slider-width - 85px
 
- .sse-slider--round-ctrl button
-   border none
-   background none
-   color white
-   padding 0 8px
-   cursor pointer
-   outline none
+.sse-slider--round-ctrl
+  display block
+  position absolute
+  //bottom $slider-bottom-height
+  bottom 0
+  z-index 10000
+  width 100%
+  height $slider-bottom-height
+  margin 0 auto
+  text-align center
+
+.sse-slider--round-ctrl button
+  border none
+  background none
+  color white
+  padding 0 8px
+  cursor pointer
+  outline none
+
+.sse-slider--activated
+  color dodgerblue !important
