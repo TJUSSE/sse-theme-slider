@@ -5,7 +5,7 @@
   window.g.$sliderScope = {
     self: this,
     settings: {
-      IntervalSec: 5
+      IntervalSec: 3
     },
     status: {
       currentShowingIndex: 0,

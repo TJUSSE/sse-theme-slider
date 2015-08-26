@@ -1,3 +1,7 @@
 .DS_Store
 .idea
 bower_components
+*.map
+src/css/*.css
+src/js/*.js
+

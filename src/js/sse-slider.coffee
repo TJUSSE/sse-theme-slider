@@ -13,15 +13,15 @@ window.g.$sliderScope =
     intervalId: -1
   fn:
     loadImg: (idx)->
-      console.log 'Slider image #%d now loading...', idx
+      # console.log 'Slider image #%d now loading...', idx
       loadingImg = $('.sse-slider img')[idx]
       url = loadingImg.getAttribute('data-src')
       $(loadingImg).attr 'src', url
       $(loadingImg).removeAttr 'data-src'
 
     onload: (idx)->
-      if idx isnt -1
-        console.log 'Slider image #%d loaded!', idx
+      # if idx isnt -1
+      # console.log 'Slider image #%d loaded!', idx
       if idx isnt (window.g.$sliderScope.status.totalImageNum - 1)
         window.g.$sliderScope.fn.loadImg(idx + 1)
 
@@ -33,7 +33,7 @@ window.g.$sliderScope =
           $(btn).addClass 'sse-slider--activated'
 
     changeToSlide: (idx)->
-      console.log 'Change to #' + idx + '...'
+      # console.log 'Change to #' + idx + '...'
       window.g.$sliderScope.status.currentShowingIndex = idx
       this.setRoundButtonActivated(idx)
 
@@ -42,7 +42,7 @@ window.g.$sliderScope =
           $(img).removeClass 'is-show'
 
       if $(imgToShow).attr 'data-src'
-        console.log 'Image #' + idx + ' not loaded, now loading...'
+        # console.log 'Image #' + idx + ' not loaded, now loading...'
         window.g.$sliderScope.fn.loadImg(idx)
 
       imgToShow = $('.sse-slider img').eq idx
@@ -100,11 +100,11 @@ $(document).ready ->
 
   $('.sse-slider').append(roundCtrl)
 
-  console.log 'Slides images num: %d', window.g.$sliderScope.status.totalImageNum
+  # console.log 'Slides images num: %d', window.g.$sliderScope.status.totalImageNum
 
   for li in $('.sse-slider li')
     idx = $(li).index()
-    console.log $(li).index()
+    # console.log $(li).index()
     img = $('.sse-slider img').eq(idx)
     $(img).attr 'onload', 'window.g.$sliderScope.fn.onload(' + idx + ')'
 
