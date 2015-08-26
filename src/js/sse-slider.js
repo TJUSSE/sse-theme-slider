@@ -5,12 +5,13 @@
   window.g.$sliderScope = {
     self: this,
     settings: {
-      IntervalSec: 2
+      IntervalSec: 5
     },
     status: {
       currentShowingIndex: 0,
       totalImageNum: 0,
-      LoadedBitmap: 0
+      LoadedBitmap: 0,
+      intervalId: -1
     },
     fn: {
       loadImg: function(idx) {
@@ -64,13 +65,27 @@
         }
         imgToShow = $('.sse-slider img').eq(idx);
         return $(imgToShow).addClass('is-show');
+      },
+      changeToNext: function() {
+        if (window.g.$sliderScope.status.currentShowingIndex + 1 === window.g.$sliderScope.status.totalImageNum) {
+          window.g.$sliderScope.fn.changeToSlide(0);
+          return null;
+        }
+        return window.g.$sliderScope.fn.changeToSlide(window.g.$sliderScope.status.currentShowingIndex + 1);
+      },
+      changeToPrev: function() {
+        if (window.g.$sliderScope.status.currentShowingIndex - 1 === -1) {
+          window.g.$sliderScope.fn.changeToSlide(window.g.$sliderScope.status.totalImageNum - 1);
+          return null;
+        }
+        return window.g.$sliderScope.fn.changeToSlide(window.g.$sliderScope.status.currentShowingIndex - 1);
       }
     }
   };
 
   $(document).ready(function() {
-    var btn, i, idx, img, j, k, l, len, len1, li, ref, ref1, ref2, results, roundCtrl;
-    $('.sse-slider').append('<div class="sse-slider--indicator"> <div class="spinner"> <div class="spinner-container container1"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> <div class="spinner-container container2"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> <div class="spinner-container container3"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> </div> </div> <div class="sse-slider--control-next"><button><i class="fa fa-angle-right"></i></button></div> <div class="sse-slider--control-prev"><button><i class="fa fa-angle-left"></i></button></div>');
+    var btn, i, idx, img, j, k, l, len, len1, li, ref, ref1, ref2, roundCtrl;
+    $('.sse-slider').append('<div class="sse-slider--indicator"> <div class="spinner"> <div class="spinner-container container1"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> <div class="spinner-container container2"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> <div class="spinner-container container3"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> </div> </div> <div class="sse-slider--control-next" id="id-slider-next"><button><i class="fa fa-angle-right"></i></button></div> <div class="sse-slider--control-prev" id="id-slider-prev"><button><i class="fa fa-angle-left"></i></button></div>');
     window.g.$sliderScope.status.totalImageNum = $('.sse-slider img').length;
     roundCtrl = '<div class="sse-slider--round-ctrl">';
     for (i = j = 0, ref = window.g.$sliderScope.status.totalImageNum - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
@@ -90,15 +105,26 @@
     window.g.$sliderScope.fn.onload(-1);
     window.g.$sliderScope.fn.changeToSlide(0);
     ref2 = $('.sse-slider--round-ctrl button');
-    results = [];
     for (l = 0, len1 = ref2.length; l < len1; l++) {
       btn = ref2[l];
-      results.push($(btn).click(function() {
+      $(btn).click(function() {
         i = $(this).index();
-        return window.g.$sliderScope.fn.changeToSlide(i);
-      }));
+        window.g.$sliderScope.fn.changeToSlide(i);
+        clearInterval(window.g.$sliderScope.status.intervalId);
+        return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+      });
     }
-    return results;
+    $('#id-slider-prev').click(function() {
+      window.g.$sliderScope.fn.changeToPrev();
+      clearInterval(window.g.$sliderScope.status.intervalId);
+      return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+    });
+    $('#id-slider-next').click(function() {
+      window.g.$sliderScope.fn.changeToNext();
+      clearInterval(window.g.$sliderScope.status.intervalId);
+      return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+    });
+    return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
   });
 
 }).call(this);

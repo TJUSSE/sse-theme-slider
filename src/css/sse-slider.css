@@ -34,7 +34,7 @@
   top: 0;
   left: 0;
   opacity: 0;
-  transition: all ease-in 0.2s;
+  transition: all ease-in 0.4s;
 }
 .sse-slider .is-show {
   opacity: 1;

@@ -1,6 +1,7 @@
 $slider-width  = 1250px;
 $slider-height = 350px;
 $slider-bottom-height = 25px;
+$fade-in-out-interval = 0.4s;
 
 html, body {
 
@@ -42,7 +43,7 @@ html, body {
   top 0
   left 0
   opacity 0
-  transition all ease-in 0.2s
+  transition all ease-in $fade-in-out-interval
 
 .sse-slider .is-show
   opacity 1

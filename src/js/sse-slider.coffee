@@ -5,11 +5,12 @@ window.g = window.g or {}
 window.g.$sliderScope =
   self: this
   settings:
-    IntervalSec: 2
+    IntervalSec: 5
   status:
     currentShowingIndex: 0
     totalImageNum: 0
     LoadedBitmap: 0
+    intervalId: -1
   fn:
     loadImg: (idx)->
       console.log 'Slider image #%d now loading...', idx
@@ -47,6 +48,18 @@ window.g.$sliderScope =
       imgToShow = $('.sse-slider img').eq idx
       $(imgToShow).addClass 'is-show'
 
+    changeToNext: ->
+      if window.g.$sliderScope.status.currentShowingIndex + 1 is window.g.$sliderScope.status.totalImageNum
+        window.g.$sliderScope.fn.changeToSlide 0
+        return null
+      window.g.$sliderScope.fn.changeToSlide window.g.$sliderScope.status.currentShowingIndex + 1
+
+    changeToPrev: ->
+      if window.g.$sliderScope.status.currentShowingIndex - 1 is -1
+        window.g.$sliderScope.fn.changeToSlide(window.g.$sliderScope.status.totalImageNum - 1)
+        return null
+      window.g.$sliderScope.fn.changeToSlide window.g.$sliderScope.status.currentShowingIndex - 1
+
 
 $(document).ready ->
   $('.sse-slider').append('
@@ -73,8 +86,8 @@ $(document).ready ->
         </div>
       </div>
 
-      <div class="sse-slider--control-next"><button><i class="fa fa-angle-right"></i></button></div>
-      <div class="sse-slider--control-prev"><button><i class="fa fa-angle-left"></i></button></div>
+      <div class="sse-slider--control-next" id="id-slider-next"><button><i class="fa fa-angle-right"></i></button></div>
+      <div class="sse-slider--control-prev" id="id-slider-prev"><button><i class="fa fa-angle-left"></i></button></div>
 
       ')
 
@@ -102,4 +115,19 @@ $(document).ready ->
     $(btn).click ->
       i = $(this).index()
       window.g.$sliderScope.fn.changeToSlide i
+      clearInterval window.g.$sliderScope.status.intervalId
+      window.g.$sliderScope.status.intervalId = setInterval window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000
 
+
+  $('#id-slider-prev').click ->
+    window.g.$sliderScope.fn.changeToPrev()
+    clearInterval window.g.$sliderScope.status.intervalId
+    window.g.$sliderScope.status.intervalId = setInterval window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000
+
+  $('#id-slider-next').click ->
+    window.g.$sliderScope.fn.changeToNext()
+    clearInterval window.g.$sliderScope.status.intervalId
+    window.g.$sliderScope.status.intervalId = setInterval window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000
+
+
+  window.g.$sliderScope.status.intervalId = setInterval window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000
