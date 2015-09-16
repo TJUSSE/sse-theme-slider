@@ -12,10 +12,10 @@ To add a slider, add a `<div class="sse-slider">`:
 ```html
   <div class="sse-slider" id="slider-demo">
     <ul>
-      <li><img src="" data-src="images/testbg-1250x350-01.png"></li>
-      <li><img src="" data-src="images/testbg-1250x350-02.png"></li>
-      <li><img src="" data-src="images/testbg-1250x350-03.png"></li>
-      <li><img src="" data-src="images/testbg-1250x350-04.png"></li>
+      <li><div class="slide" data-src="images/sse-slide-demo-large-1.png"></div></li>
+      <li><div class="slide" data-src="images/sse-slide-demo-large-2.png"></div></li>
+      <li><div class="slide" data-src="images/sse-slide-demo-large-3.png"></div></li>
+      <li><div class="slide" data-src="images/sse-slide-demo-large-4.png"></div></li>
     </ul>
   </div>
 ```
