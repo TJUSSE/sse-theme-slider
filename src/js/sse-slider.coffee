@@ -13,15 +13,15 @@ window.g.$sliderScope =
     intervalId: -1
   fn:
     loadImg: (idx)->
-      # console.log 'Slider image #%d now loading...', idx
-      loadingImg = $('.sse-slider img')[idx]
+      console.log 'Slider image #%d now loading...', idx
+      loadingImg = $('.sse-slider .slide')[idx]
       url = loadingImg.getAttribute('data-src')
-      $(loadingImg).attr 'src', url
+      $(loadingImg).attr('style', 'background-image: url("' + url + '");')
       $(loadingImg).removeAttr 'data-src'
 
     onload: (idx)->
       # if idx isnt -1
-      # console.log 'Slider image #%d loaded!', idx
+      console.log 'Slider image #%d loaded!', idx
       if idx isnt (window.g.$sliderScope.status.totalImageNum - 1)
         window.g.$sliderScope.fn.loadImg(idx + 1)
 
@@ -33,19 +33,19 @@ window.g.$sliderScope =
           $(btn).addClass 'sse-slider--activated'
 
     changeToSlide: (idx)->
-      # console.log 'Change to #' + idx + '...'
+      console.log 'Change to #' + idx + '...'
       window.g.$sliderScope.status.currentShowingIndex = idx
       this.setRoundButtonActivated(idx)
 
-      for img, i in $('.sse-slider img')
+      for img, i in $('.sse-slider div.slide')
         if ($(img).hasClass 'is-show') and (i isnt idx)
           $(img).removeClass 'is-show'
 
-      if $(imgToShow).attr 'data-src'
-        # console.log 'Image #' + idx + ' not loaded, now loading...'
+      imgToShow = $('.sse-slider > ul > li > .slide').eq idx
+      if($(imgToShow).attr 'data-src')
+        console.log 'Image #' + idx + ' not loaded, now loading...'
         window.g.$sliderScope.fn.loadImg(idx)
 
-      imgToShow = $('.sse-slider img').eq idx
       $(imgToShow).addClass 'is-show'
 
     changeToNext: ->
@@ -91,7 +91,7 @@ $(document).ready ->
 
       ')
 
-  window.g.$sliderScope.status.totalImageNum = $('.sse-slider img').length
+  window.g.$sliderScope.status.totalImageNum = $('.sse-slider .slide').length
 
   roundCtrl = '<div class="sse-slider--round-ctrl">'
   for i in [0..window.g.$sliderScope.status.totalImageNum - 1]
@@ -105,7 +105,7 @@ $(document).ready ->
   for li in $('.sse-slider li')
     idx = $(li).index()
     # console.log $(li).index()
-    img = $('.sse-slider img').eq(idx)
+    img = $('.slide').eq(idx)
     $(img).attr 'onload', 'window.g.$sliderScope.fn.onload(' + idx + ')'
 
   window.g.$sliderScope.fn.onload(-1)
