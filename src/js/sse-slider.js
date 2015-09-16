@@ -37,7 +37,7 @@
           if ($(btn).hasClass('sse-slider--activated')) {
             $(btn).removeClass('sse-slider--activated');
           }
-          if ($(btn).index() === idx) {
+          if ($(btn).index() === (idx + 1)) {
             results.push($(btn).addClass('sse-slider--activated'));
           } else {
             results.push(void 0);
@@ -86,9 +86,11 @@
     $('.sse-slider').append('<div class="sse-slider--indicator"> <div class="spinner"> <div class="spinner-container container1"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> <div class="spinner-container container2"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> <div class="spinner-container container3"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> </div> </div> <div class="sse-slider--control-next" id="id-slider-next"><button><i class="fa fa-angle-right"></i></button></div> <div class="sse-slider--control-prev" id="id-slider-prev"><button><i class="fa fa-angle-left"></i></button></div>');
     window.g.$sliderScope.status.totalImageNum = $('.sse-slider .slide').length;
     roundCtrl = '<div class="sse-slider--round-ctrl">';
+    roundCtrl += '<a class="round-ctrl-arrow" id="id-slider-prev-ctrl"><i class="fa fa-angle-left"></i></a>';
     for (i = j = 0, ref = window.g.$sliderScope.status.totalImageNum - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
       roundCtrl += '<button><i class="fa fa-circle"></i></button>';
     }
+    roundCtrl += '<a class="round-ctrl-arrow" id="id-slider-next-ctrl"><i class="fa fa-angle-right"></i></a>';
     roundCtrl += '</div>';
     $('.sse-slider').append(roundCtrl);
     ref1 = $('.sse-slider li');
@@ -105,7 +107,7 @@
       btn = ref2[l];
       $(btn).click(function() {
         i = $(this).index();
-        window.g.$sliderScope.fn.changeToSlide(i);
+        window.g.$sliderScope.fn.changeToSlide(i - 1);
         clearInterval(window.g.$sliderScope.status.intervalId);
         return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
       });
@@ -115,12 +117,23 @@
       clearInterval(window.g.$sliderScope.status.intervalId);
       return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
     });
+    $('#id-slider-prev-ctrl').click(function() {
+      window.g.$sliderScope.fn.changeToPrev();
+      clearInterval(window.g.$sliderScope.status.intervalId);
+      return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+    });
     $('#id-slider-next').click(function() {
       window.g.$sliderScope.fn.changeToNext();
       clearInterval(window.g.$sliderScope.status.intervalId);
       return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
     });
-    return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+    $('#id-slider-next-ctrl').click(function() {
+      window.g.$sliderScope.fn.changeToNext();
+      clearInterval(window.g.$sliderScope.status.intervalId);
+      return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+    });
+    window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+    return $('.sse-slider').css('height', window.innerHeight + 'px');
   });
 
 }).call(this);

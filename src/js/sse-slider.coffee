@@ -29,7 +29,7 @@ window.g.$sliderScope =
       for btn in $('.sse-slider--round-ctrl button')
         if $(btn).hasClass 'sse-slider--activated'
           $(btn).removeClass 'sse-slider--activated'
-        if $(btn).index() is idx
+        if $(btn).index() is (idx + 1)
           $(btn).addClass 'sse-slider--activated'
 
     changeToSlide: (idx)->
@@ -41,7 +41,7 @@ window.g.$sliderScope =
         if ($(img).hasClass 'is-show') and (i isnt idx)
           $(img).removeClass 'is-show'
 
-      imgToShow = $('.sse-slider > ul > li > .slide').eq idx
+      imgToShow = $('.sse-slider > ul > li > .slide').eq(idx)
       if($(imgToShow).attr 'data-src')
         console.log 'Image #' + idx + ' not loaded, now loading...'
         window.g.$sliderScope.fn.loadImg(idx)
@@ -94,8 +94,10 @@ $(document).ready ->
   window.g.$sliderScope.status.totalImageNum = $('.sse-slider .slide').length
 
   roundCtrl = '<div class="sse-slider--round-ctrl">'
+  roundCtrl += '<a class="round-ctrl-arrow" id="id-slider-prev-ctrl"><i class="fa fa-angle-left"></i></a>'
   for i in [0..window.g.$sliderScope.status.totalImageNum - 1]
     roundCtrl += '<button><i class="fa fa-circle"></i></button>'
+  roundCtrl += '<a class="round-ctrl-arrow" id="id-slider-next-ctrl"><i class="fa fa-angle-right"></i></a>'
   roundCtrl += '</div>'
 
   $('.sse-slider').append(roundCtrl)
@@ -106,7 +108,7 @@ $(document).ready ->
     idx = $(li).index()
     # console.log $(li).index()
     img = $('.slide').eq(idx)
-    $(img).attr 'onload', 'window.g.$sliderScope.fn.onload(' + idx + ')'
+    $(img).attr 'onload', 'window.g.$sliderScope.fn.onload(' + (idx)+ ')'
 
   window.g.$sliderScope.fn.onload(-1)
   window.g.$sliderScope.fn.changeToSlide(0)
@@ -114,7 +116,7 @@ $(document).ready ->
   for btn in $('.sse-slider--round-ctrl button')
     $(btn).click ->
       i = $(this).index()
-      window.g.$sliderScope.fn.changeToSlide i
+      window.g.$sliderScope.fn.changeToSlide(i - 1)
       clearInterval window.g.$sliderScope.status.intervalId
       window.g.$sliderScope.status.intervalId = setInterval window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000
 
@@ -123,11 +125,22 @@ $(document).ready ->
     window.g.$sliderScope.fn.changeToPrev()
     clearInterval window.g.$sliderScope.status.intervalId
     window.g.$sliderScope.status.intervalId = setInterval window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000
+  $('#id-slider-prev-ctrl').click ->
+    window.g.$sliderScope.fn.changeToPrev()
+    clearInterval window.g.$sliderScope.status.intervalId
+    window.g.$sliderScope.status.intervalId = setInterval window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000
 
   $('#id-slider-next').click ->
+    window.g.$sliderScope.fn.changeToNext()
+    clearInterval window.g.$sliderScope.status.intervalId
+    window.g.$sliderScope.status.intervalId = setInterval window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000
+  $('#id-slider-next-ctrl').click ->
     window.g.$sliderScope.fn.changeToNext()
     clearInterval window.g.$sliderScope.status.intervalId
     window.g.$sliderScope.status.intervalId = setInterval window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000
 
 
   window.g.$sliderScope.status.intervalId = setInterval window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000
+
+  # 调整slide大小至屏幕大小
+  $('.sse-slider').css('height', window.innerHeight + 'px')
