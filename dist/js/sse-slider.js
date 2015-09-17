@@ -29,15 +29,15 @@
         }
       },
       setRoundButtonActivated: function(idx) {
-        var btn, j, len, ref, results;
+        var btn, k, len, ref, results;
         ref = $('.sse-slider--round-ctrl button');
         results = [];
-        for (j = 0, len = ref.length; j < len; j++) {
-          btn = ref[j];
+        for (k = 0, len = ref.length; k < len; k++) {
+          btn = ref[k];
           if ($(btn).hasClass('sse-slider--activated')) {
             $(btn).removeClass('sse-slider--activated');
           }
-          if ($(btn).index() === idx) {
+          if ($(btn).index() === (idx + 1)) {
             results.push($(btn).addClass('sse-slider--activated'));
           } else {
             results.push(void 0);
@@ -46,15 +46,22 @@
         return results;
       },
       changeToSlide: function(idx) {
-        var i, img, imgToShow, j, len, ref;
+        var i, img, imgToShow, j, k, l, len, len1, ref, ref1, text, textToShow;
         console.log('Change to #' + idx + '...');
         window.g.$sliderScope.status.currentShowingIndex = idx;
         this.setRoundButtonActivated(idx);
         ref = $('.sse-slider div.slide');
-        for (i = j = 0, len = ref.length; j < len; i = ++j) {
+        for (i = k = 0, len = ref.length; k < len; i = ++k) {
           img = ref[i];
           if (($(img).hasClass('is-show')) && (i !== idx)) {
             $(img).removeClass('is-show');
+          }
+        }
+        ref1 = $('.sse-slider > ul > li > .slide > .slide-content');
+        for (j = l = 0, len1 = ref1.length; l < len1; j = ++l) {
+          text = ref1[j];
+          if (($(text).hasClass('is-show')) && (j !== idx + 1)) {
+            $(text).removeClass('is-show');
           }
         }
         imgToShow = $('.sse-slider > ul > li > .slide').eq(idx);
@@ -62,7 +69,9 @@
           console.log('Image #' + idx + ' not loaded, now loading...');
           window.g.$sliderScope.fn.loadImg(idx);
         }
-        return $(imgToShow).addClass('is-show');
+        textToShow = $('.sse-slider > ul > li > .slide > .slide-content').eq(idx);
+        $(imgToShow).addClass('is-show');
+        return $(textToShow).addClass('is-show');
       },
       changeToNext: function() {
         if (window.g.$sliderScope.status.currentShowingIndex + 1 === window.g.$sliderScope.status.totalImageNum) {
@@ -82,18 +91,20 @@
   };
 
   $(document).ready(function() {
-    var btn, i, idx, img, j, k, l, len, len1, li, ref, ref1, ref2, roundCtrl;
+    var btn, i, idx, img, k, l, len, len1, li, m, ref, ref1, ref2, roundCtrl;
     $('.sse-slider').append('<div class="sse-slider--indicator"> <div class="spinner"> <div class="spinner-container container1"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> <div class="spinner-container container2"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> <div class="spinner-container container3"> <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div> </div> </div> </div> <div class="sse-slider--control-next" id="id-slider-next"><button><i class="fa fa-angle-right"></i></button></div> <div class="sse-slider--control-prev" id="id-slider-prev"><button><i class="fa fa-angle-left"></i></button></div>');
     window.g.$sliderScope.status.totalImageNum = $('.sse-slider .slide').length;
     roundCtrl = '<div class="sse-slider--round-ctrl">';
-    for (i = j = 0, ref = window.g.$sliderScope.status.totalImageNum - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+    roundCtrl += '<a class="round-ctrl-arrow" id="id-slider-prev-ctrl"><i class="fa fa-angle-left"></i></a>';
+    for (i = k = 0, ref = window.g.$sliderScope.status.totalImageNum - 1; 0 <= ref ? k <= ref : k >= ref; i = 0 <= ref ? ++k : --k) {
       roundCtrl += '<button><i class="fa fa-circle"></i></button>';
     }
+    roundCtrl += '<a class="round-ctrl-arrow" id="id-slider-next-ctrl"><i class="fa fa-angle-right"></i></a>';
     roundCtrl += '</div>';
     $('.sse-slider').append(roundCtrl);
     ref1 = $('.sse-slider li');
-    for (k = 0, len = ref1.length; k < len; k++) {
-      li = ref1[k];
+    for (l = 0, len = ref1.length; l < len; l++) {
+      li = ref1[l];
       idx = $(li).index();
       img = $('.slide').eq(idx);
       $(img).attr('onload', 'window.g.$sliderScope.fn.onload(' + idx + ')');
@@ -101,11 +112,11 @@
     window.g.$sliderScope.fn.onload(-1);
     window.g.$sliderScope.fn.changeToSlide(0);
     ref2 = $('.sse-slider--round-ctrl button');
-    for (l = 0, len1 = ref2.length; l < len1; l++) {
-      btn = ref2[l];
+    for (m = 0, len1 = ref2.length; m < len1; m++) {
+      btn = ref2[m];
       $(btn).click(function() {
         i = $(this).index();
-        window.g.$sliderScope.fn.changeToSlide(i);
+        window.g.$sliderScope.fn.changeToSlide(i - 1);
         clearInterval(window.g.$sliderScope.status.intervalId);
         return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
       });
@@ -115,12 +126,23 @@
       clearInterval(window.g.$sliderScope.status.intervalId);
       return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
     });
+    $('#id-slider-prev-ctrl').click(function() {
+      window.g.$sliderScope.fn.changeToPrev();
+      clearInterval(window.g.$sliderScope.status.intervalId);
+      return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+    });
     $('#id-slider-next').click(function() {
       window.g.$sliderScope.fn.changeToNext();
       clearInterval(window.g.$sliderScope.status.intervalId);
       return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
     });
-    return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+    $('#id-slider-next-ctrl').click(function() {
+      window.g.$sliderScope.fn.changeToNext();
+      clearInterval(window.g.$sliderScope.status.intervalId);
+      return window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+    });
+    window.g.$sliderScope.status.intervalId = setInterval(window.g.$sliderScope.fn.changeToNext, window.g.$sliderScope.settings.IntervalSec * 1000);
+    return $('.sse-slider').css('height', window.innerHeight + 'px');
   });
 
 }).call(this);

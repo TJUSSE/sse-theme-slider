@@ -99,12 +99,16 @@
     -webkit-transform: scale(1);
   }
 }
+html,
+body {
+  margin: 0;
+}
 .sse-slider {
   display: block;
   position: relative;
   margin: 0 auto;
-  width: 1250px;
-  min-height: 350px;
+  width: 100%;
+  min-height: 920px;
   overflow: hidden;
 }
 .sse-slider--hidden {
@@ -120,7 +124,7 @@
   margin: auto;
   z-index: 9996;
   width: 100%;
-  height: 350px;
+  height: 100%;
   background: #ddd;
 }
 .sse-slider ul {
@@ -132,15 +136,17 @@
   z-index: 9997;
   display: block;
   position: absolute;
-  width: 1250px;
-  height: 350px;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   opacity: 0;
   transition: all ease-in 0.4s;
+  background-size: cover;
+  background-position: center;
 }
 .sse-slider .is-show {
-  opacity: 1;
+  opacity: 1 !important;
 }
 .sse-slider .is-loading,
 .sse-slider--control-prev,
@@ -148,17 +154,17 @@
   display: inline-block;
   position: absolute;
   top: 0;
-  height: 350px;
+  height: 100%;
 }
 .sse-slider--control-prev button,
 .sse-slider--control-next button {
   width: 85px;
-  height: 350px;
+  height: 100%;
   border: none;
-  color: #000;
+  color: #fff;
   outline: 0;
   font-size: 2em;
-  line-height: 350px;
+  line-height: 100%;
   text-align: center;
   background: none;
   cursor: pointer;
@@ -180,23 +186,62 @@
 .sse-slider--round-ctrl {
   display: block;
   position: absolute;
-  bottom: 0;
+  right: 20px;
+  bottom: 6%;
   z-index: 10000;
-  width: 100%;
+  width: 20%;
   height: 25px;
   margin: 0 auto;
   text-align: center;
 }
-.sse-slider--round-ctrl button {
+.sse-slider--round-ctrl button,
+.round-ctrl-arrow {
   border: none;
   background: none;
   color: #fff;
   padding: 0 8px;
   cursor: pointer;
   outline: none;
+  height: 45px;
+  line-height: 45px !important;
+}
+.sse-slider--round-ctrl button i,
+.round-ctrl-arrow i {
+  height: 45px;
+  line-height: 45px !important;
 }
 .sse-slider--activated {
   color: #1e90ff !important;
+  padding-top: 5px;
+  font-size: 1.1em;
+  line-height: 45px;
+}
+.slide-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 16%;
+  background: rgba(0,0,0,0.7);
+  z-index: 10000;
+  padding-left: 100px;
+  opacity: 0;
+}
+.slide-content h2 {
+  color: #1e90ff !important;
+  font-size: 1.5em;
+}
+.slide-content h2 a {
+  text-decoration: none;
+  color: #1e90ff !important;
+}
+.slide-content p {
+  color: #fff;
+  max-width: 600px;
+  font-size: 1.25em;
+}
+.round-ctrl-arrow {
+  color: #fff;
 }
 @-moz-keyframes bouncedelay {
   0%, 80%, 100% {
