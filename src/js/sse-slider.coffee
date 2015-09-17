@@ -41,12 +41,19 @@ window.g.$sliderScope =
         if ($(img).hasClass 'is-show') and (i isnt idx)
           $(img).removeClass 'is-show'
 
+      for text, j in $('.sse-slider > ul > li > .slide > .slide-content')
+        if ($(text).hasClass 'is-show') and (j isnt idx + 1)
+          $(text).removeClass 'is-show'
+
       imgToShow = $('.sse-slider > ul > li > .slide').eq(idx)
       if($(imgToShow).attr 'data-src')
         console.log 'Image #' + idx + ' not loaded, now loading...'
         window.g.$sliderScope.fn.loadImg(idx)
 
+      textToShow = $('.sse-slider > ul > li > .slide > .slide-content').eq(idx)
+
       $(imgToShow).addClass 'is-show'
+      $(textToShow).addClass 'is-show'
 
     changeToNext: ->
       if window.g.$sliderScope.status.currentShowingIndex + 1 is window.g.$sliderScope.status.totalImageNum
